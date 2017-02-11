@@ -7,8 +7,9 @@ block content
       | #{project.briefDescription}
     .col-sm-4
         form.form(method="POST")
+            input(type='hidden', name='_csrf', value=_csrf)
             .form-group
-                button.btn.btn-primary(type='submit')
+                button.btn.btn-primary(type='submit' name='action' value='support-project')
                     | Support Project
 
 

@@ -13,7 +13,15 @@ const projectDetails = new mongoose.Schema({
   minimunBackersRequired: Number,
   status: {type: String, enum: ["Started","WaitingForBackers"]},
   eventDetails:{
-   startDate: Date
+      projectStartDate: Date,
+      startDate: Date,
+      venue    :{
+                   address   : String,
+                   city      : String,
+                   state     : String,
+                   zipcode   : String,
+                   country   : String
+                }
   },
   location:String,
   user: {type: mongoose.Schema.Types.ObjectId, ref : User},

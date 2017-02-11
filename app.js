@@ -139,6 +139,7 @@ app.get('/project/new',passportConfig.isAuthenticated, projectController.getProj
 app.post('/project/new',passportConfig.isAuthenticated, projectController.postProject);
 app.get('/projects',passportConfig.isAuthenticated, projectController.listProjects);
 app.get('/project/:id',passportConfig.isAuthenticated, projectController.getDescription);
+app.post('/project/:id', passportConfig.isAuthenticated, projectController.postDescription);
 /**
  * API examples routes.
  */

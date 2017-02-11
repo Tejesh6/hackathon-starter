@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const Project = require('../models/Project');
+const Supporter = require('../models/Supporter');
 const _ = require("underscore");
 const transporter = nodemailer.createTransport({
   service: 'SendGrid',
@@ -44,15 +45,17 @@ exports.getDescription = (req, res) => {
     res.render('projectDescription', {project:result });
   });
 };
-/*exports.supportProject = (req, res) => {
-  Project.({}, function (err, result) {
 
-    res.render('supportProject',{projects:result } );
-
-    /!* _.each(result,function(res){
-     res.render('projectList', res);
-     })*!/
+exports.postDescription = (req, res) => {
+  console.log(req);
+  var supporter = new Supporter();
+  supporter.project = req.params.id;
+  supporter.user = req.user;
+  supporter.save(function (err, result) {
+    if (!err)
+      req.flash('success', { msg: 'You supported this project.' });
+    res.redirect("/project/"+req.params.id);
   });
-};*/
+};
 
 
