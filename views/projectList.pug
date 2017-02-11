@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .page-header
+    h3 Project List
+
+  form.form-horizontal(method='GET')
+    input(type='hidden', name='_csrf', value=_csrf)
+    ul.list-group
+      each project in projects
+        li.list-group-item
+
+            a.pull-right.btn-btn-default(href='/project/'+project._id+'/edit') Edit
+            h3
+               a(href="/project/"+project._id) #{project.name}
+
+            | #{project.briefDescription}

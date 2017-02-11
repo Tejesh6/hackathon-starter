@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  .page-header
+    h3 Project Form
+
+  form.form-horizontal(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label(class='col-sm-2 control-label', for='name') Name
+      .col-sm-8
+        input.form-control(type='text', name='name', id='name', autofocus=true)
+    .form-group
+      label(class='col-sm-2 control-label', for='briefDescription') Brief Description
+      .col-sm-8
+        input.form-control(type='text', name='briefDescription', id='briefDescription')
+    .form-group
+      label(class='col-sm-2 control-label', for='detailedDescription') Detailed Description
+      .col-sm-8
+        textarea.form-control(name='detailedDescription', id='detailedDescription', rows='7')
+    .form-group
+      label(class='col-sm-2 control-label', for='campaignStartDate') Campaign StartDate
+      .col-sm-8
+         input.form-control(type='date', name='campaignStartDate', id='campaignStartDate')
+    .form-group
+      label(class='col-sm-2 control-label', for='campaignEndDate') Campaign End date
+      .col-sm-8
+        input.form-control(type='date', name='campaignEndDate', id='campaignEndDate')
+    .form-group
+      label(class='col-sm-2 control-label', for='minimunNumberOfBackers') Backers
+      .col-sm-8
+        input.form-control(type='text', name='minimunNumberOfBackers', id='minimunNumberOfBackers')
+    .form-group
+      .col-sm-offset-2.col-sm-2
+        button.btn.btn-primary(type='submit')
+          | Save
+      .col-sm-1
+        button.btn.btn-primary(type='submit')
+          | Publish

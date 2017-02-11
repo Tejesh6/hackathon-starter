@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  .row
+    h3.col-sm-12.page-header #{project.name}
+    .col-sm-8
+      | #{project.briefDescription}
+    .col-sm-4
+        form.form(method="POST")
+            .form-group
+                button.btn.btn-primary(type='submit')
+                    | Support Project
+
+
+  .row
+   .col-sm-6
+     .form-group
+       |Email - #{user.email}
+       .row
+        .col-sm-6
+          .form-group
+            |Created At - #{user.createdAt}
+   .col-sm-6
+     | #{project.detailedDescription}
+
+
+
