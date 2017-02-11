@@ -47,7 +47,7 @@ exports.listProjects = (req, res) => {
 
 exports.getDescription = (req, res) => {
   var project;
-  var bakkers;
+  var supporters;
   var iSupported = false;
 
   async.parallel([
@@ -63,8 +63,8 @@ exports.getDescription = (req, res) => {
         project: req.params.id
       }).populate('user').exec(function (err, result) {
         console.log('Supporter', result);
-        bakkers = result;
-        iSupported = bakkers.filter(function (support) {
+        supporters = result;
+        iSupported = supporters.filter(function (support) {
           return (support.user == req.user.id)
         }).length > 0;
         callback();
@@ -73,7 +73,7 @@ exports.getDescription = (req, res) => {
   ], function () {
     res.render('projectDescription', {
       project: project,
-      supporters: bakkers,
+      supporters: supporters,
       iSupported: iSupported
     });
   });
