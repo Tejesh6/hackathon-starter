@@ -4,14 +4,34 @@ block content
   .row
     h3.col-sm-12.page-header #{project.name}
     .col-sm-8
-      | #{project.briefDescription}
-    .col-sm-4
+      != project.detailedDescription
+    .col-sm-4.text-center
+        br
+        if user.profile.picture
+          img(src=user.profile.picture)
+        else
+          img(src=user.gravatar(120))
+        h4= user.profile.name || user.email || user.id
+        small Created at #{user.createdAt}
+        hr
+        br
+        | Support this cause by backing it. When the project meets required number of people, your information will be shared with #{user.profile.name || user.email || user.id}
+        br
+        br
+        - var goalComplete = 100*supporters.length/project.minimunBackersRequired;
+        .progress
+          .progress-bar.progress-bar-success(role='progressbar', aria-valuenow=goalComplete, aria-valuemin='0', aria-valuemax='100', style='width: '+goalComplete+'%;')
+            span.sr-only #{goalComplete}% Complete
+        
         form.form(method="POST")
             input(type='hidden', name='_csrf', value=_csrf)
             .form-group
-                button.btn.btn-primary(type='submit' name='action' value='support-project')
-                    | Support Project
-
+                if !iSupported
+                  button.btn.btn-primary(type='submit' name='action' value='support-project')
+                      | Support This Cause
+                else
+                  button.btn.btn-info(disabled)
+                      | You Supported This Cause
 
   .row
    .col-sm-6
@@ -20,9 +40,8 @@ block content
        .row
         .col-sm-6
           .form-group
-            |Created At - #{user.createdAt}
+            | 
    .col-sm-6
-     | #{project.detailedDescription}
-
+     |
 
 

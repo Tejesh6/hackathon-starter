@@ -2,18 +2,12 @@ extends layout
 
 block content
   .page-header
-    h3 Project List
+    h3 Browse Causes
 
-  form.form-horizontal(method='GET')
-    input(type='hidden', name='_csrf', value=_csrf)
     ul.list-group
       each project in projects
         li.list-group-item
-          .form-group
-            .col-sm-3
-             h3
-                a(href="/project/"+project._id) #{project.name}
-            .col-sm-6
-                | #{project.briefDescription}
-            .col-sm-3
-                a.fa.fa-pencil-square-o.pull-right.btn-btn-default(href='/project/'+project._id+'/edit')
+          h3
+            a.fa.fa-pencil-square-o.pull-right.btn-btn-default(href='/project/'+project._id+'/edit')
+            a(href="/project/"+project._id) #{project.name}
+          | #{project.briefDescription}

@@ -1,3 +1,4 @@
+const async = require('async');
 const nodemailer = require('nodemailer');
 const Project = require('../models/Project');
 const Supporter = require('../models/Supporter');
@@ -26,25 +27,54 @@ exports.getProject = (req, res) => {
  */
 exports.postProject = (req, res) => {
   var project = new Project();
-  _.extend(project,req.body);
-  console.log('received: ',req.body)
-  console.log('converted: ',project)
-  project.save( function (err, result) {
-    console.log("Server received:",req.body);
-    res.redirect("/project/"+result._id);
+  _.extend(project, req.body);
+  console.log('received: ', req.body)
+  console.log('converted: ', project)
+  project.save(function (err, result) {
+    console.log("Server received:", req.body);
+    res.redirect("/project/" + result._id);
   });
 };
 
 exports.listProjects = (req, res) => {
   Project.find({}, function (err, result) {
-    res.render('projectList',{projects:result } );
+    res.render('projectList', {
+      projects: result
+    });
   });
 };
 
 exports.getDescription = (req, res) => {
-  Project.findById(req.params.id, function (err, result) {
-    console.log(result);
-    res.render('projectDescription', {project:result });
+  var project;
+  var bakkers;
+  var iSupported = false;
+
+  async.parallel([
+    (callback) => {
+      Project.findById(req.params.id, function (err, result) {
+        console.log('Project', result);
+        project = result;
+        callback();
+      });
+    },
+    (callback) => {
+      Supporter.find({
+        project: req.params.id
+      }).populate('user').exec(function (err, result) {
+        console.log('Supporter', result);
+        bakkers = result;
+        iSupported = bakkers.filter(function (support) {
+          return (support.user == req.user.id)
+        }).length > 0;
+        callback();
+      });
+    }
+  ], function () {
+    res.render('projectDescription', {
+      project: project,
+      supporters: bakkers,
+      iSupported: iSupported
+    });
   });
 };
 
@@ -55,9 +85,9 @@ exports.postDescription = (req, res) => {
   supporter.user = req.user;
   supporter.save(function (err, result) {
     if (!err)
-      req.flash('success', { msg: 'You supported this project.' });
-    res.redirect("/project/"+req.params.id);
+      req.flash('success', {
+        msg: 'You supported this project.'
+      });
+    res.redirect("/project/" + req.params.id);
   });
 };
-
-
