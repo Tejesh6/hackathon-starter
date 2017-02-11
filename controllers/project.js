@@ -27,6 +27,8 @@ exports.getProject = (req, res) => {
 exports.postProject = (req, res) => {
   var project = new Project();
   _.extend(project,req.body);
+  console.log('received: ',req.body)
+  console.log('converted: ',project)
   project.save( function (err, result) {
     console.log("Server received:",req.body);
     res.redirect("/project/"+result._id);
@@ -47,7 +49,7 @@ exports.getDescription = (req, res) => {
 };
 
 exports.postDescription = (req, res) => {
-  console.log(req);
+  console.log(req.body);
   var supporter = new Supporter();
   supporter.project = req.params.id;
   supporter.user = req.user;

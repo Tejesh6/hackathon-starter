@@ -9,9 +9,11 @@ block content
     ul.list-group
       each project in projects
         li.list-group-item
-
-            a.pull-right.btn-btn-default(href='/project/'+project._id+'/edit') Edit
-            h3
-               a(href="/project/"+project._id) #{project.name}
-
-            | #{project.briefDescription}
+          .form-group
+            .col-sm-3
+             h3
+                a(href="/project/"+project._id) #{project.name}
+            .col-sm-6
+                | #{project.briefDescription}
+            .col-sm-3
+                a.fa.fa-pencil-square-o.pull-right.btn-btn-default(href='/project/'+project._id+'/edit')

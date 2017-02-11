@@ -2,7 +2,7 @@ extends layout
 
 block content
   .page-header
-    h3 Project Form
+    h3 Create A New Cause
 
 
   form.form-horizontal(method='POST')
@@ -10,11 +10,11 @@ block content
     .form-group
       label(class='col-sm-2 control-label', for='name') Name
       .col-sm-8
-        input.form-control(type='text', name='name', id='name', autofocus=true)
+        input.form-control(type='text', name='name', id='name', autofocus=true required)
     .form-group
       label(class='col-sm-2 control-label', for='briefDescription') Brief Description
       .col-sm-8
-        input.form-control(type='text', name='briefDescription', id='briefDescription')
+        input.form-control(type='text', name='briefDescription', id='briefDescription' required)
     .form-group
       label(class='col-sm-2 control-label', for='detailedDescription') Detailed Description
       .col-sm-8
@@ -28,20 +28,20 @@ block content
       .col-sm-8
         input.form-control(type='date', name='campaignEndDate', id='campaignEndDate')
     .form-group
-      label(class='col-sm-2 control-label', for='minimunNumberOfBackers') Backers
+      label(class='col-sm-2 control-label', for='minimunBackersRequired') Minimum supporters needed
       .col-sm-8
-        input.form-control(type='text', name='minimunNumberOfBackers', id='minimunNumberOfBackers')
+        input.form-control(type='number', min="1" name='minimunBackersRequired', id='minimunBackersRequired' required)
     .form-group
       label(class='col-sm-2 control-label', for='projectStartDate') Project Start Date
       .col-sm-8
         input.form-control(type='date', name='projectStartDate', id='projectStartDate')
     .form-group
           h2.col-sm-offset-6
-          label(class='col-sm-6 control-label', for='minimunNumberOfBackers') Venue Details
+          label(class='col-sm-6 control-label', for='Venue Details') Venue Details
     .form-group
-      label(class='col-sm-2 control-label', for='address') Address
+      label(class='col-sm-2 control-label', for='address') Address*
       .col-sm-8
-        input.form-control(type='text', name='address', id='address')
+        input.form-control(type='text', name='address', id='address' required)
     .form-group
       label(class='col-sm-2 control-label', for='city') City
       .col-sm-8
@@ -54,10 +54,6 @@ block content
       label(class='col-sm-2 control-label', for='state') Zipcode
       .col-sm-8
         input.form-control(type='text', name='zipcode', id='zipcode')
-    .form-group
-      label(class='col-sm-2 control-label', for='state') State
-      .col-sm-8
-        input.form-control(type='text', name='state', id='state')
     .form-group
       label(class='col-sm-2 control-label', for='country') Country
       .col-sm-8

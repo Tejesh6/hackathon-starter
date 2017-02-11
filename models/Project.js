@@ -12,18 +12,12 @@ const projectDetails = new mongoose.Schema({
   numberOfBackers:Number,
   minimunBackersRequired: Number,
   status: {type: String, enum: ["Started","WaitingForBackers"]},
-  eventDetails:{
-      projectStartDate: Date,
-      startDate: Date,
-      venue    :{
-                   address   : String,
-                   city      : String,
-                   state     : String,
-                   zipcode   : String,
-                   country   : String
-                }
-  },
-  location:String,
+  projectStartDate: Date,
+  address   : String,
+  city      : String,
+  state     : String,
+  zipcode   : String,
+  country   : String,
   user: {type: mongoose.Schema.Types.ObjectId, ref : User},
   isPublished:Boolean,
 
