@@ -17,7 +17,8 @@ const transporter = nodemailer.createTransport({
  */
 exports.getProject = (req, res) => {
   res.render('createproject', {
-    title: 'Create Project'
+    title: 'Create Project',
+    project: {}
   });
 };
 
@@ -89,5 +90,27 @@ exports.postDescription = (req, res) => {
         msg: 'You supported this project.'
       });
     res.redirect("/project/" + req.params.id);
+  });
+};
+
+
+exports.getEdit = (req, res) => {
+  Project.findById(req.params.id, function (err, result) {
+    res.render('createproject', {
+      title: 'Edit Project',
+      project: result
+    });
+  });
+};
+
+exports.postEdit = (req, res) => {
+  Project.findById(req.params.id, function (err, result) {
+    _.extend(result, req.body);
+    console.log('received: ', req.body)
+    console.log('converted: ', result)
+    result.save(function (err, result2) {
+      console.log("Server received:", req.body);
+      res.redirect("/project/" + result._id);
+    });
   });
 };

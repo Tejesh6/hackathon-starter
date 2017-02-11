@@ -8,6 +8,5 @@ block content
       each project in projects
         li.list-group-item
           h3
-            a.fa.fa-pencil-square-o.pull-right.btn-btn-default(href='/project/'+project._id+'/edit')
             a(href="/project/"+project._id) #{project.name}
           | #{project.briefDescription}

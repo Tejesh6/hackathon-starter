@@ -3,6 +3,8 @@ extends layout
 block content
   .row
     h3.col-sm-12.page-header #{project.name}
+      a.pull-right.btn.btn-link(href='/project/'+project._id+'/edit')
+        i.fa.fa-pencil-square-o
     .col-sm-8
       != project.detailedDescription
     .col-sm-4.text-center
@@ -32,16 +34,12 @@ block content
                 else
                   button.btn.btn-info(disabled)
                       | You Supported This Cause
-
-  .row
-   .col-sm-6
-     .form-group
-       |Email - #{user.email}
-       .row
-        .col-sm-6
-          .form-group
-            | 
-   .col-sm-6
-     |
-
-
+        if supporters && supporters.length > 0
+          hr
+          h3 Supporters
+          each sub in supporters
+            if sub.user.profile.picture
+              img.pull-left(src=sub.user.profile.picture)
+            else
+              img.pull-left(src=sub.user.gravatar(60))
+              
