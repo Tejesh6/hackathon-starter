@@ -17,7 +17,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
-var connectAssets = require('connect-assets');
 const multer = require('multer');
 
 const upload = multer({
@@ -64,11 +63,6 @@ mongoose.connection.on('error', () => {
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-app.use(require('stylus').middleware({src:__dirname + '/public',compress:true}));
-app.use(connectAssets({
-  paths: ['public/css', 'public/js'],
-  helperContext: app.locals
-}));
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(logger('dev'));

@@ -71,7 +71,6 @@ exports.getDescription = (req, res) => {
       });
     }
   ], function () {
-    console.log(iSupported);
     res.render('projectDescription', {
       project: project,
       supporters: supporters,
