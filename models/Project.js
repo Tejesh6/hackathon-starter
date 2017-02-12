@@ -18,7 +18,7 @@ const projectDetails = new mongoose.Schema({
   state     : String,
   zipcode   : String,
   country   : String,
-  user: {type: mongoose.Schema.Types.ObjectId, ref : User},
+  user: {type: mongoose.Schema.Types.ObjectId, ref : 'User'},
   isPublished:Boolean,
 
 }, { timestamps: true });

@@ -7,7 +7,20 @@ block content
     ul.list-group
       each project in projects
         | &nbsp;
-        li.list-group-item
-          h3
-            a(href="/project/"+project._id) #{project.name}
-          | #{project.briefDescription}
+        li.row.list-group-item
+          .col-sm-8
+            h3
+              a(href="/project/"+project._id) #{project.name}
+            br
+            | #{project.briefDescription}
+          .col-sm-4.text-center
+            | by
+            br
+            | #{project.user.profile.name || project.user.email}
+            br
+            br
+            - var goalComplete = 100*project.numberOfBackers/project.minimunBackersRequired;
+            | #{project.numberOfBackers} / #{project.minimunBackersRequired} supported
+            .progress
+              .progress-bar.progress-bar-success(role='progressbar', aria-valuenow=goalComplete, aria-valuemin='0', aria-valuemax='100', style='width: '+goalComplete+'%;')
+                span.sr-only #{goalComplete}% Complete

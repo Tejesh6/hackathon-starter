@@ -29,6 +29,8 @@ exports.getProject = (req, res) => {
 exports.postProject = (req, res) => {
   var project = new Project();
   _.extend(project, req.body);
+  project.user = req.user;
+  project.numberOfBackers = 0;
   console.log('received: ', req.body)
   console.log('converted: ', project)
   project.save(function (err, result) {
@@ -38,7 +40,8 @@ exports.postProject = (req, res) => {
 };
 
 exports.listProjects = (req, res) => {
-  Project.find({}, function (err, result) {
+  Project.find({}).populate('user').exec(function (err, result) {
+    console.log('All projects', result);
     res.render('projectList', {
       projects: result
     });
@@ -64,8 +67,10 @@ exports.getDescription = (req, res) => {
       }).populate('user').exec(function (err, result) {
         console.log('Supporter', result);
         bakkers = result;
+        console.log('   Req user:', req.user.id);
         iSupported = bakkers.filter(function (support) {
-          return (support.user == req.user.id)
+          console.log('   A supporter', support.user.id);
+          return (support.user.id == req.user.id)
         }).length > 0;
         callback();
       });
@@ -90,6 +95,16 @@ exports.postDescription = (req, res) => {
         msg: 'You supported this project.'
       });
     res.redirect("/project/" + req.params.id);
+  });
+  Project.findById(req.params.id, function(err, p) {
+    if (p)
+      p.numberOfBackers = p.numberOfBackers +1;
+      p.save(function(err) {
+        if (err)
+          console.log('error')
+        else
+          console.log('success')
+      });
   });
 };
 

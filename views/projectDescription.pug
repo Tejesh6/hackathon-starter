@@ -9,13 +9,14 @@ block content
       != project.detailedDescription
     .col-sm-4.text-center
         br
-        if user.profile.picture
-          img(src=user.profile.picture)
-        else
-          img(src=user.gravatar(120))
-        h4= user.profile.name || user.email || user.id
-        small Created at #{user.createdAt}
-        hr
+        if project.user
+            if user.profile.picture
+              img(src=user.profile.picture)
+            else
+              img(src=user.gravatar(120))
+            h4= user.profile.name || user.email || user.id
+            small Created at #{user.createdAt}
+            hr
         br
         | Support this cause by backing it. When the project meets required number of people, your information will be shared with #{user.profile.name || user.email || user.id}
         br
@@ -24,7 +25,14 @@ block content
         .progress
           .progress-bar.progress-bar-success(role='progressbar', aria-valuenow=goalComplete, aria-valuemin='0', aria-valuemax='100', style='width: '+goalComplete+'%;')
             span.sr-only #{goalComplete}% Complete
-        
+        .text-center
+            | #{supporters.length} / #{project.minimunBackersRequired} supporters
+            br
+            if supporters.length == 0
+                | Become the first to support this cause!
+                br
+                br
+
         form.form(method="POST")
             input(type='hidden', name='_csrf', value=_csrf)
             .form-group
